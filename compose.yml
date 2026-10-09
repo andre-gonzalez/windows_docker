@@ -11,8 +11,10 @@ services:
       - /dev/kvm
     cap_add:
       - NET_ADMIN
+    # Bound to localhost: Docker publishes ports past the host firewall, so
+    # 0.0.0.0 would expose the web viewer and RDP on every network joined.
     ports:
-      - 8006:8006
-      - 3389:3389/tcp
-      - 3389:3389/udp
+      - 127.0.0.1:8006:8006
+      - 127.0.0.1:3389:3389/tcp
+      - 127.0.0.1:3389:3389/udp
     stop_grace_period: 2m
